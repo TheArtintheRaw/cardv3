@@ -268,6 +268,7 @@ const Home = (props: HomeProps) => {
       }
     })();
   }, [wallet, connection]);
+
   useEffect(() => {
     async () => {
       if (!candyMachine) return;

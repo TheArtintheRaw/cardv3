@@ -1,7 +1,6 @@
 import Button from "@material-ui/core/Button";
 import {CandyMachine} from "@metaplex-foundation/js";
 import {CircularProgress} from "@material-ui/core";
-import {mx} from "./Home";
 import styled from "styled-components";
 import {useState} from "react";
 

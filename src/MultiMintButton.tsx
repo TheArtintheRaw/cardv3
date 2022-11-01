@@ -1,7 +1,8 @@
-import { CircularProgress } from "@material-ui/core";
+import {useMemo, useState} from "react";
+
 import Button from "@material-ui/core/Button";
-import { CandyMachine } from "@metaplex-foundation/js";
-import { useMemo, useState } from "react";
+import {CandyMachine} from "@metaplex-foundation/js";
+import {CircularProgress} from "@material-ui/core";
 import styled from "styled-components";
 
 export const CTAButton = styled(Button)`
@@ -22,8 +23,7 @@ export const Minus = styled.button`
   line-height: 0.5px;
   color: #000;
   background: #fff;
-  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
-    0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
   border: 0;
   border-radius: 5px;
   box-sizing: border-box;
@@ -54,8 +54,7 @@ export const NumericField = styled.input`
   padding: 0;
   vertical-align: middle;
   background-color: var(--main-text-color);
-  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
-    0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
   box-sizing: border-box;
   font-family: "Patrick Hand", cursive;
   font-weight: 500;
@@ -70,8 +69,7 @@ export const NumericField = styled.input`
 
   :hover,
   :focus {
-    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 40%),
-      0px 6px 10px 0px rgb(0 0 0 / 34%), 0px 1px 18px 0px rgb(0 0 0 / 32%);
+    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 40%), 0px 6px 10px 0px rgb(0 0 0 / 34%), 0px 1px 18px 0px rgb(0 0 0 / 32%);
   }
 
   ::-webkit-outer-spin-button,
@@ -146,25 +144,31 @@ export const MultiMintButton = ({
   }
   const disabled = useMemo(
     () => loading || isSoldOut || isMinting || isEnded || !isActive,
-    [loading, isSoldOut, isMinting, isEnded, !isActive]
+    [loading, isSoldOut, isMinting, isEnded, isActive]
   );
   return (
     <div>
       <div>
-        <Minus disabled={disabled} onClick={() => decrementValue()}>
-          <span style={{ marginTop: "-5px !important" }}>-</span>
+        <Minus
+          disabled={disabled}
+          onClick={() => decrementValue()}
+        >
+          <span style={{marginTop: "-5px !important"}}>-</span>
         </Minus>
         <NumericField
           disabled={disabled}
-          type="number"
-          className="mint-qty"
+          type='number'
+          className='mint-qty'
           step={1}
           min={1}
           max={10}
           value={mintCount}
           onChange={(e) => updateMintCount(e.target as any)}
         />
-        <Plus disabled={disabled} onClick={() => incrementValue()}>
+        <Plus
+          disabled={disabled}
+          onClick={() => incrementValue()}
+        >
           +
         </Plus>
 
@@ -177,7 +181,7 @@ export const MultiMintButton = ({
             await onMint(mintCount);
             setLoading(false);
           }}
-          variant="contained"
+          variant='contained'
         >
           {!candyMachine ? (
             "CONNECTING..."
@@ -196,9 +200,7 @@ export const MultiMintButton = ({
           )}
         </CTAButton>
       </div>
-      {!isSoldOut && isActive && (
-        <h3>Total estimated cost (Solana fees included) : {totalCost} SOL</h3>
-      )}
+      {!isSoldOut && isActive && <h3>Total estimated cost (Solana fees included) : {totalCost} SOL</h3>}
     </div>
   );
 };

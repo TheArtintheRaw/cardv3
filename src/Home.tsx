@@ -1,5 +1,5 @@
 import {AccountInfo, LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
-import {CandyMachine, Metaplex, MintLimitGuardSettings, Pda, metaplex, walletAdapterIdentity} from "@metaplex-foundation/js";
+import {CandyMachine, Metaplex, MintLimitGuardSettings, Pda, walletAdapterIdentity} from "@metaplex-foundation/js";
 import {Heading, Hero, MintCount, NftWrapper, NftWrapper2, Root, StyledContainer} from "./styles";
 import {Paper, Snackbar} from "@material-ui/core";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";

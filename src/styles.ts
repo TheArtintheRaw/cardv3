@@ -121,7 +121,7 @@ export const Root = styled("div")`
     -webkit-box-shadow: 0 16px 16px rgba(0, 0, 0, 0.1);
     position: relative;
     background: url(/mf.png);
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
   }
 

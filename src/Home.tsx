@@ -279,10 +279,10 @@ const Home = (props: HomeProps) => {
         guardsLocal.nftGate = {
           requiredCollection: nftRequiredCollection.account,
         };
-        if (wallet?.publicKey && !guardsLocal.nftGate)
-          guardsLocal.nftGate = await mx.candyMachine?.guards.nftGate({
-            mint: "G3oMvVf4q6arbbnEBAEkZgE6PUNTswYT3XjT3QXNYyCv",
-          });
+        // if (wallet?.publicKey && !guardsLocal.nftGate)
+        //   guardsLocal.nftGate = await mx.candyMachine?.guards.nftGate({
+        //     mint: "G3oMvVf4q6arbbnEBAEkZgE6PUNTswYT3XjT3QXNYyCv",
+        //   });
         if (candyMachine.candyGuard.guards.mintLimit) {
           guardsLocal.mintLimit = {
             settings: candyMachine.candyGuard.guards.mintLimit,

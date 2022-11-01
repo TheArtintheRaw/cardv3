@@ -204,6 +204,7 @@ const Home = (props: HomeProps) => {
 
     throwConfetti();
   }
+  const collectionUpdateAuthority: collectionUpdateAuthority.pubKey = process.env.NEXT_PUBLIC_AUTHORITY_ID.stringify();
   const startMint = async (quantityString: number = 1) => {
     try {
       console.log(quantityString, candyMachine);

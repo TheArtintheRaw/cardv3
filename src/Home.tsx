@@ -212,7 +212,7 @@ const Home = (props: HomeProps) => {
         console.log(candyMachine.authorityAddress.toString());
         const {nft} = await mx.candyMachines().mint({
           candyMachine,
-          collectionUpdateAuthority, // mx.candyMachines().pdas().authority({candyMachine: candyMachine.address})
+          collectionUpdateAuthority: candyMachine.authorityAccount, // mx.candyMachines().pdas().authority({candyMachine: candyMachine.address})
 
           // group: "hold",
 

@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import {AccountInfo, LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
 import {CandyMachine, Metaplex, MintLimitGuardSettings, Pda, walletAdapterIdentity} from "@metaplex-foundation/js";
 import {Heading, Hero, MintCount, NftWrapper, NftWrapper2, Root, StyledContainer} from "./styles";

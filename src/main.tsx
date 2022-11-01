@@ -1,7 +1,5 @@
-import {createTheme, ThemeProvider} from "@material-ui/core";
-import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {Connection, PublicKey, clusterApiUrl} from "@solana/web3.js";
 import {ConnectionProvider, WalletProvider} from "@solana/wallet-adapter-react";
-import {WalletModalProvider} from "@solana/wallet-adapter-react-ui";
 import {
   LedgerWalletAdapter,
   PhantomWalletAdapter,
@@ -12,10 +10,13 @@ import {
   SolletWalletAdapter,
   SolongWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
-import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
-import {useMemo} from "react";
+import {ThemeProvider, createTheme} from "@material-ui/core";
 
+import ErrorBoundary from "../src/ErrorBoundary";
 import Home from "../src/Home";
+import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {WalletModalProvider} from "@solana/wallet-adapter-react-ui";
+import {useMemo} from "react";
 
 const network = (process.env.NEXT_PUBLIC_SOLANA_NETWORK || WalletAdapterNetwork.Mainnet) as WalletAdapterNetwork;
 // const network = WalletAdapterNetwork.Devnet;
@@ -72,18 +73,20 @@ const Main = ({}) => {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <ConnectionProvider endpoint={endpoint}>
-        <WalletProvider
-          wallets={wallets}
-          autoConnect={true}
-        >
-          <WalletModalProvider>
-            <Home candyMachineId={candyMachineId} />
-          </WalletModalProvider>
-        </WalletProvider>
-      </ConnectionProvider>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider theme={theme}>
+        <ConnectionProvider endpoint={endpoint}>
+          <WalletProvider
+            wallets={wallets}
+            autoConnect={true}
+          >
+            <WalletModalProvider>
+              <Home candyMachineId={candyMachineId} />
+            </WalletModalProvider>
+          </WalletProvider>
+        </ConnectionProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 };
 

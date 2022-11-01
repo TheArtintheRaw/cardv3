@@ -306,11 +306,11 @@ const Home = (props: HomeProps) => {
         setGuards(guardsLocal);
       }
     })();
-  }, [wallet, candyMachine, balance, connection]);
+  }, [wallet, candyMachine, balance, connection, mx]);
   useEffect(() => {
     console.log({guards});
   }, [guards]);
-  useEffect(refreshCandyMachineState, [wallet, props.candyMachineId, connection, isEnded, isPresale]);
+  useEffect(refreshCandyMachineState, [wallet, props.candyMachineId, connection, isEnded, isPresale, mx]);
   return (
     <main>
       <>

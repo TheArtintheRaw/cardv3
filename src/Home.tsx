@@ -268,58 +268,49 @@ const Home = (props: HomeProps) => {
       }
     })();
   }, [wallet, connection]);
-
   useEffect(() => {
-    if (!candyMachine) return;
-    if (candyMachine?.candyGuard?.address) {
-      const guardsLocal: Guards = {
-        address: candyMachine?.candyGuard.address,
-      };
-      // if (candyMachine.candyGuard.guards.nftGate) {
-      //   guardsLocal.nftGate = {
-      //     requiredCollection: nftRequiredCollection.account,
-      //   };
-      // if (wallet?.publicKey && !guardsLocal.nftGate)
-      //   guardsLocal.nftGate = await mx.candyMachine?.guards.nftGate({
-      //     mint: "G3oMvVf4q6arbbnEBAEkZgE6PUNTswYT3XjT3QXNYyCv",
-      //   });
-      if (candyMachine.candyGuard.guards.mintLimit) {
-        guardsLocal.mintLimit = {
-          settings: candyMachine.candyGuard.guards.mintLimit,
+    (async () => {
+      if (!candyMachine) return;
+      if (candyMachine?.candyGuard?.address) {
+        const guardsLocal: Guards = {
+          address: candyMachine?.candyGuard.address,
         };
-        if (wallet?.publicKey && !guardsLocal.mintLimit.pda)
-          guardsLocal.mintLimit.pda = await mx.candyMachines().pdas().mintLimitCounter({
-            candyGuard: candyMachine?.candyGuard.address,
-            id: candyMachine.candyGuard.guards.mintLimit.id,
-            candyMachine: candyMachine.address,
-            user: wallet.publicKey,
-          });
-        if (guardsLocal.mintLimit.pda) {
-          guardsLocal.mintLimit.accountInfo = await connection.getAccountInfo(guardsLocal.mintLimit.pda);
-          if (guardsLocal.mintLimit.accountInfo)
-            // [guardsLocal.mintLimit.mintCounter] = MintCounter.fromAccountInfo(
-            //   guardsLocal.mintLimit.accountInfo
-            // );
-            guardsLocal.mintLimit.mintCounter = MintCounterBorsh.fromBuffer(guardsLocal.mintLimit.accountInfo.data);
+        if (candyMachine.candyGuard.guards.mintLimit) {
+          guardsLocal.mintLimit = {
+            settings: candyMachine.candyGuard.guards.mintLimit,
+          };
+          if (wallet?.publicKey && !guardsLocal.mintLimit.pda)
+            guardsLocal.mintLimit.pda = await mx.candyMachines().pdas().mintLimitCounter({
+              candyGuard: candyMachine?.candyGuard.address,
+              id: candyMachine.candyGuard.guards.mintLimit.id,
+              candyMachine: candyMachine.address,
+              user: wallet.publicKey,
+            });
+          if (guardsLocal.mintLimit.pda) {
+            guardsLocal.mintLimit.accountInfo = await connection.getAccountInfo(guardsLocal.mintLimit.pda);
+            if (guardsLocal.mintLimit.accountInfo)
+              // [guardsLocal.mintLimit.mintCounter] = MintCounter.fromAccountInfo(
+              //   guardsLocal.mintLimit.accountInfo
+              // );
+              guardsLocal.mintLimit.mintCounter = MintCounterBorsh.fromBuffer(guardsLocal.mintLimit.accountInfo.data);
+          }
         }
-      }
-      if (candyMachine?.candyGuard?.guards?.startDate) {
-        const date = new Date(candyMachine?.candyGuard?.guards.startDate.date.toNumber() * 1000);
-        if (date.getTime() > Date.now()) {
-          guardsLocal.goLiveDate = date;
-        } else {
-          guardsLocal.goLiveDate = null;
+        if (candyMachine?.candyGuard?.guards?.startDate) {
+          const date = new Date(candyMachine?.candyGuard?.guards.startDate.date.toNumber() * 1000);
+          if (date.getTime() > Date.now()) {
+            guardsLocal.goLiveDate = date;
+          } else {
+            guardsLocal.goLiveDate = null;
+          }
         }
+        setGuards(guardsLocal);
       }
-      setGuards(guardsLocal);
-    }
-  }, [wallet, candyMachine, balance, connection, mx]);
-
+    })();
+  }, [wallet, candyMachine, balance, connection]);
   useEffect(() => {
     console.log({guards});
   }, [guards]);
-  useEffect(refreshCandyMachineState, [wallet, props.candyMachineId, connection, isEnded, isPresale, mx]);
-
+  useEffect(refreshCandyMachineState, [wallet, props.candyMachineId, connection, isEnded, isPresale]);
   return (
     <main>
       <>
@@ -471,6 +462,5 @@ const Home = (props: HomeProps) => {
       </Snackbar>
     </main>
   );
-
-  export default Home;
 };
+export default Home;

@@ -212,13 +212,14 @@ const Home = (props: HomeProps) => {
         console.log(candyMachine.authorityAddress.toString());
         const {nft} = await mx.candyMachines().mint({
           candyMachine,
+          collectionUpdateAuthority,
 
           // group: "hold",
 
           // confirmOptions: {
           //   skipPreflight: true,
           // },
-          commitment: "processed",
+
           confirmOptions: {
             commitment: "processed",
           },

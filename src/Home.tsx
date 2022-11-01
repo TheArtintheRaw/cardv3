@@ -204,7 +204,7 @@ const Home = (props: HomeProps) => {
 
     throwConfetti();
   }
-  const collectionUpdateAuthority = new PublicKey(process.env.NEXT_PUBLIC_AUTHORITY_ID);
+  const collectionUpdateAuthority = new PublicKey(process.env.NEXT_PUBLIC_AUTHORITY_ID.PubKey);
   const startMint = async (quantityString: number = 1) => {
     try {
       console.log(quantityString, candyMachine);
@@ -216,17 +216,19 @@ const Home = (props: HomeProps) => {
         const {nft} = await mx.candyMachines().mint({
           candyMachine,
           collectionUpdateAuthority,
-
-          // group: "hold",
-
-          // confirmOptions: {
-          //   skipPreflight: true,
-          // },
-
-          confirmOptions: {
-            commitment: "processed",
+          settings: {
+            mintLimit: {
+              id: 1,
+              limit: 1,
+            },
           },
         });
+
+        // group: "hold",
+
+        // confirmOptions: {
+        //   skipPreflight: true,
+        // },
       }
 
       // update front-end amounts

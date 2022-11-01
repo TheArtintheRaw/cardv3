@@ -216,12 +216,6 @@ const Home = (props: HomeProps) => {
         const {nft} = await mx.candyMachines().mint({
           candyMachine,
           collectionUpdateAuthority: new PublicKey("DDqyXJVDdMM9QfjhpuvsynNpC8xnCdX6EjPRgzhP23bZ"),
-          settings: {
-            mintLimit: {
-              id: 1,
-              limit: 1,
-            },
-          },
         });
 
         // group: "hold",

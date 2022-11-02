@@ -6,7 +6,6 @@ import {
   MintLimitGuardSettings,
   Nft,
   NftGateGuardMintSettings,
-  NftGateGuardSettings,
   NftWithToken,
   Pda,
   SolAmount,
@@ -129,10 +128,6 @@ export type Guards = {
       settings: NftGateGuardMintSettings;
       mint: PublicKey;
       tokenAccount?: PublicKey;
-    },
-    {
-      settings: NftGateGuardSettings;
-      requiredCollection?: PublicKey;
     }
   ];
   mintLimit?: {
@@ -168,7 +163,7 @@ const Home = (props: HomeProps) => {
   const [isPresale, setIsPresale] = useState(false);
   const [isWLOnly, setIsWLOnly] = useState(false);
   const [guards, setGuards] = useState<Guards>();
-  const [requiredCollection, setRequiredCollection] = useState<nftGate>();
+
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
     message: "",
@@ -256,7 +251,10 @@ const Home = (props: HomeProps) => {
           await mintFromCandyMachineBuilder(mx, {
             candyMachine,
             collectionUpdateAuthority: candyMachine.authorityAddress, // mx.candyMachines().pdas().authority({candyMachine: candyMachine.address})
-            groups: "hold",
+            group: "hold",
+            guards: {
+              mint: new PublicKey("G3oMvVf4q6arbbnEBAEkZgE6PUNTswYT3XjT3QXNYyCv"),
+            },
           })
         );
       }
@@ -395,16 +393,6 @@ const Home = (props: HomeProps) => {
             guardsLocal.payment.basisPoints.div(new BN(guardsLocal.payment.currency.decimals).pow(new BN(10))).toNumber()
           );
           setPriceLabel(guardsLocal.payment.currency.symbol);
-        }
-        if (candyMachine?.candyGuard?.guards?.groups?.label)
-          guardsLocal.label = candyMachine?.candyGuard?.guards?.groups?.label.hold;
-        if (guardsLocal.label) {
-          setGuards(guardsLocal.label.hold);
-          if (candyMachine?.candyGuard?.guards?.nftGate)
-            guardsLocal.nftGate = candyMachine?.candyGuard?.guards?.nftGate.requiredCollection.publicKey;
-          if (guardsLocal.nftGate) {
-            setRequiredCollection(guardsLocal.nftGate.requiredCollection.publicKey);
-          }
         }
         setGuards(guardsLocal);
       }

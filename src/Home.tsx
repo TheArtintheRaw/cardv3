@@ -117,7 +117,6 @@ export interface HomeProps {
 export type Guards = {
   address: PublicKey;
   botTax?: {
-    settings: BotTaxGuardSettings;
     payment?: SolAmount;
     lastInstruction?: boolean;
   };

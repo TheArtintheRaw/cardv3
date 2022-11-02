@@ -1,13 +1,13 @@
-import { CircularProgress } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { CandyMachine } from "@metaplex-foundation/js";
-import { useState } from "react";
+import {CandyMachine} from "@metaplex-foundation/js";
+import {CircularProgress} from "@material-ui/core";
 import styled from "styled-components";
+import {useState} from "react";
 
 export const CTAButton = styled(Button)`
   display: block !important;
   margin: 0 auto !important;
-  background-color: var(--title-text-color) !important;
+  background-color: #ff0022;
   min-width: 120px !important;
   font-size: 1em !important;
 `;
@@ -19,9 +19,10 @@ export const MintButton = ({
   isEnded,
   isActive,
   isSoldOut,
-  limitReached
+  limitReached,
 }: {
   onMint: (quantityString: number) => Promise<void>;
+
   candyMachine: CandyMachine | undefined;
   isMinting: boolean;
   isEnded: boolean;
@@ -40,7 +41,7 @@ export const MintButton = ({
         await onMint(1);
         setLoading(false);
       }}
-      variant="contained"
+      variant='contained'
     >
       {!candyMachine ? (
         "CONNECTING..."

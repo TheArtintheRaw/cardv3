@@ -1,13 +1,13 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const StyledContainer = styled('div')<any>`
+export const StyledContainer = styled("div")<any>`
   position: relative;
   width: 100%;
   max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
   padding: 0 60px;
-  border-top: ${(p) => (p.border ? '1px solid #CDD1D4' : '')};
+  border-top: ${(p) => (p.border ? "1px solid #CDD1D4" : "")};
   @media only screen and (max-width: 1024px) {
     max-width: calc(100% - 68px);
     padding: 0 30px;
@@ -24,7 +24,7 @@ export const StyledContainer = styled('div')<any>`
   }
 `;
 
-export const Root = styled('div')`
+export const Root = styled("div")`
   position: relative;
   z-index: 99;
   .cloud-content {
@@ -121,6 +121,7 @@ export const Root = styled('div')`
     -webkit-box-shadow: 0 16px 16px rgba(0, 0, 0, 0.1);
     position: relative;
     background: url(/mf.png);
+    background-size: 100%;
     background-repeat: no-repeat;
   }
 
@@ -273,14 +274,10 @@ export const Root = styled('div')`
       rgba(252, 201, 82, 1) 61%,
       rgba(248, 160, 55, 1) 100%
     );
-    box-shadow: inset 2px 2px 8px 0 rgba(252, 201, 82, 0),
-      inset -3px -3px 8px 0 rgba(245, 169, 76, 0),
-      6px 6px 18px 0 rgba(204, 123, 35, 0.35),
-      -6px -6px 18px 0 rgba(205, 157, 35, 0.5);
-    -webkit-box-shadow: inset 2px 2px 8px 0 rgba(252, 201, 82, 0),
-      inset -3px -3px 8px 0 rgba(245, 169, 76, 0),
-      6px 6px 18px 0 rgba(204, 123, 35, 0.35),
-      -6px -6px 18px 0 rgba(205, 157, 35, 0.5);
+    box-shadow: inset 2px 2px 8px 0 rgba(252, 201, 82, 0), inset -3px -3px 8px 0 rgba(245, 169, 76, 0),
+      6px 6px 18px 0 rgba(204, 123, 35, 0.35), -6px -6px 18px 0 rgba(205, 157, 35, 0.5);
+    -webkit-box-shadow: inset 2px 2px 8px 0 rgba(252, 201, 82, 0), inset -3px -3px 8px 0 rgba(245, 169, 76, 0),
+      6px 6px 18px 0 rgba(204, 123, 35, 0.35), -6px -6px 18px 0 rgba(205, 157, 35, 0.5);
     position: relative;
     z-index: 2;
   }
@@ -319,7 +316,7 @@ export const Root = styled('div')`
     position: relative;
   }
   .eyes:before {
-    content: '';
+    content: "";
     height: 6px;
     width: 6px;
     display: block;
@@ -626,28 +623,28 @@ export const Root = styled('div')`
   // }
 `;
 
-export const Hero = styled('div')`
+export const Hero = styled("div")`
   text-align: center;
   margin: 80px 0 80px;
 `;
-export const MintCount = styled('h3')`
-  font-family: 'Patrick Hand', cursive;
+export const MintCount = styled("h3")`
+  font-family: "Patrick Hand", cursive;
   font-size: 30px;
   line-height: 1;
   margin-bottom: 20px;
   margin-top: 25px;
   font-weight: 700;
 `;
-export const Heading = styled('h1')`
+export const Heading = styled("h1")`
   font-family: nabana;
   letter-spacing: 2px;
   margin-bottom: -20px;
   color: #897ea5;
   font-size: 60px;
 `;
-export const MintButtonStyled = styled('button')`
-  border: 0.1px solid #424242;
-  background: #000000b0;
+export const MintButtonStyled = styled("button")`
+  border: 0.1px solid #ff0053;
+  background: ##ff0022;
   border-radius: 10px;
   padding: 6px;
   font-size: 28px;
@@ -660,7 +657,7 @@ export const MintButtonStyled = styled('button')`
     background: #0000;
   }
 `;
-export const NftWrapper = styled('div')`
+export const NftWrapper = styled("div")`
   position: relative;
   z-index: 99;
   .marquee-wrapper {
@@ -692,7 +689,7 @@ export const NftWrapper = styled('div')`
     }
   }
 `;
-export const NftWrapper2 = styled('div')`
+export const NftWrapper2 = styled("div")`
   position: relative;
   z-index: 99;
   .marquee-wrapper {

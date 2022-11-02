@@ -123,13 +123,7 @@ export type Guards = {
   goLiveDate?: Date;
   endTime?: Date;
   payment?: SplTokenAmount | SolAmount;
-  nftGate?: [
-    {
-      settings: NftGateGuardMintSettings;
-      mint: PublicKey;
-      tokenAccount?: PublicKey;
-    }
-  ];
+
   mintLimit?: {
     settings: MintLimitGuardSettings;
     pda?: Pda;
@@ -251,10 +245,6 @@ const Home = (props: HomeProps) => {
           await mintFromCandyMachineBuilder(mx, {
             candyMachine,
             collectionUpdateAuthority: candyMachine.authorityAddress, // mx.candyMachines().pdas().authority({candyMachine: candyMachine.address})
-            group: "hold",
-            guards: {
-              mint: new PublicKey("G3oMvVf4q6arbbnEBAEkZgE6PUNTswYT3XjT3QXNYyCv"),
-            },
           })
         );
       }

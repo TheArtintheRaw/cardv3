@@ -1,5 +1,9 @@
-import {Connection, PublicKey, clusterApiUrl} from "@solana/web3.js";
-import {ConnectionProvider, WalletProvider} from "@solana/wallet-adapter-react";
+import { createTheme, ThemeProvider } from "@material-ui/core";
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import {
   LedgerWalletAdapter,
   PhantomWalletAdapter,
@@ -10,16 +14,12 @@ import {
   SolletWalletAdapter,
   SolongWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
-import {ThemeProvider, createTheme} from "@material-ui/core";
+
+import { useMemo } from "react";
 
 import Home from "../src/Home";
-import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
-import {WalletModalProvider} from "@solana/wallet-adapter-react-ui";
-import {useMemo} from "react";
+import { rpcHost, candyMachineId, network } from "./config";
 
-const network = (process.env.NEXT_PUBLIC_SOLANA_NETWORK || WalletAdapterNetwork.Mainnet) as WalletAdapterNetwork;
-// const network = WalletAdapterNetwork.Devnet;
-const rpcHost = process.env.NEXT_PUBLIC_RPC_HOST || clusterApiUrl(network);
 
 const theme = createTheme({
   palette: {
@@ -46,9 +46,6 @@ const theme = createTheme({
   },
 });
 
-const candyMachineId = new PublicKey(
-  process.env.NEXT_PUBLIC_CANDY_MACHINE_ID || "GAho4XsMa92pqsxxioxdq4rjxorxPf7TVceEX91A6VEy"
-);
 
 const Main = ({}) => {
   // Custom RPC endpoint.
@@ -62,8 +59,8 @@ const Main = ({}) => {
       new LedgerWalletAdapter(),
       new PhantomWalletAdapter(),
       new SafePalWalletAdapter(),
-      new SlopeWalletAdapter({network}),
-      new SolflareWalletAdapter({network}),
+      new SlopeWalletAdapter({ network }),
+      new SolflareWalletAdapter({ network }),
       new SolletExtensionWalletAdapter(),
       new SolletWalletAdapter(),
       new SolongWalletAdapter(),
@@ -74,10 +71,7 @@ const Main = ({}) => {
   return (
     <ThemeProvider theme={theme}>
       <ConnectionProvider endpoint={endpoint}>
-        <WalletProvider
-          wallets={wallets}
-          autoConnect={true}
-        >
+        <WalletProvider wallets={wallets} autoConnect={true}>
           <WalletModalProvider>
             <Home candyMachineId={candyMachineId} />
           </WalletModalProvider>

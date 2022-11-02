@@ -1,11 +1,13 @@
 import React, {Suspense} from "react";
+
 import dynamic from "next/dynamic";
+
 const DynamicMain = dynamic(() => import("../src/main"), {
-  suspense: false,
-  ssr: false,
+  suspense: true,
+  ssr: true,
 });
 
-const IndexPage = () => {
+const IndexPage = ({}) => {
   return (
     <Suspense fallback={`Loading...`}>
       <DynamicMain />

@@ -34,7 +34,7 @@ export const Minus = styled.button`
   :hover {
     border: none;
     outline: none !important;
-    background: #d09a69;
+    background: #ff0022;
   }
   :not(disabled) {
     cursor: pointer;
@@ -56,7 +56,7 @@ export const NumericField = styled.input`
   background-color: var(--main-text-color);
   box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
   box-sizing: border-box;
-  font-family: "Patrick Hand", cursive;
+  font-family: "Electromagnetic Lungs", regular;
   font-weight: 500;
   line-height: 1px;
   border: none;
@@ -86,6 +86,8 @@ export const MultiMintButton = ({
   isActive,
   isSoldOut,
   price,
+  priceLabel,
+  limit,
 }: {
   onMint: (quantityString: number) => Promise<void>;
   candyMachine: CandyMachine | undefined;
@@ -94,6 +96,8 @@ export const MultiMintButton = ({
   isActive: boolean;
   isSoldOut: boolean;
   price: number;
+  priceLabel: string;
+  limit: number;
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -143,14 +147,14 @@ export const MultiMintButton = ({
     setTotalCost(Math.round(qty * (price + 0.012) * 1000) / 1000); // 0.012 = approx of account creation fees
   }
   const disabled = useMemo(
-    () => loading || isSoldOut || isMinting || isEnded || !isActive,
-    [loading, isSoldOut, isMinting, isEnded, isActive]
+    () => loading || isSoldOut || isMinting || isEnded || !isActive || mintCount > limit,
+    [loading, isSoldOut, isMinting, isEnded, isActive, mintCount, limit]
   );
   return (
     <div>
       <div>
         <Minus
-          disabled={disabled}
+          disabled={disabled || mintCount <= 1}
           onClick={() => decrementValue()}
         >
           <span style={{marginTop: "-5px !important"}}>-</span>
@@ -161,12 +165,12 @@ export const MultiMintButton = ({
           className='mint-qty'
           step={1}
           min={1}
-          max={10}
+          max={Math.min(limit, 10)}
           value={mintCount}
           onChange={(e) => updateMintCount(e.target as any)}
         />
         <Plus
-          disabled={disabled}
+          disabled={disabled || limit <= mintCount}
           onClick={() => incrementValue()}
         >
           +
@@ -188,7 +192,9 @@ export const MultiMintButton = ({
           ) : isSoldOut ? (
             "SOLD OUT"
           ) : isActive ? (
-            isMinting || loading ? (
+            mintCount > limit ? (
+              "LIMIT REACHED"
+            ) : isMinting || loading ? (
               <CircularProgress />
             ) : (
               "MINT"
@@ -200,7 +206,11 @@ export const MultiMintButton = ({
           )}
         </CTAButton>
       </div>
-      {!isSoldOut && isActive && <h3>Total estimated cost (Solana fees included) : {totalCost} SOL</h3>}
+      {!isSoldOut && isActive && (
+        <h3>
+          Total estimated cost (Solana fees included) : {totalCost} {priceLabel || "SOL"}
+        </h3>
+      )}
     </div>
   );
 };
